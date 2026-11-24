@@ -3,54 +3,39 @@ let defaultData = null; // Store loaded default to reset to if needed
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    let response;
-    try {
-      response = await fetch("data.json");
-    } catch (e) {
-      // Catch network errors (like CORS block when opening via file:// protocol)
-      throw new Error("CORS or Network error");
-    }
-
-    if (!response.ok) throw new Error("Failed to load resume data");
+    const response = await fetch("data.json");
+    if (!response.ok) throw new Error(`HTTP error ${response.status}`);
     const data = await response.json();
     resumeData = data;
     defaultData = JSON.parse(JSON.stringify(data)); // Deep clone
 
     initializeResumeBuilder();
   } catch (error) {
-    console.warn(
-      "Could not fetch data.json directly, falling back to local storage or embedded default template:",
-      error,
-    );
+    console.warn("Could not fetch data.json directly:", error);
 
-    // Display fallback warning
+    // Display fallback warning banner
     const fallbackNotif = document.getElementById("fallback-notification");
     if (fallbackNotif) fallbackNotif.style.display = "block";
 
-    // Embed the default data directly inside the script so the application is fully offline-capable and CORS-resilient
-    const fallbackData = getFallbackData();
-    resumeData = fallbackData;
-    defaultData = JSON.parse(JSON.stringify(fallbackData));
-
-    initializeResumeBuilder();
+    // Attempt to load from saved local storage if available
+    const savedData = localStorage.getItem("resume_builder_data");
+    if (savedData) {
+      try {
+        resumeData = JSON.parse(savedData);
+        defaultData = JSON.parse(JSON.stringify(resumeData));
+        initializeResumeBuilder();
+      } catch (e) {
+        console.error("Failed to parse local storage data", e);
+      }
+    }
   }
 });
 
 function initializeResumeBuilder() {
-  // Check local storage for existing customizations
-  const savedData = localStorage.getItem("resume_builder_data");
-  if (savedData) {
-    try {
-      resumeData = JSON.parse(savedData);
-    } catch (e) {
-      console.error("Failed to parse saved local storage data", e);
-    }
-  }
-
   // Check saved theme preferences from local storage
   loadSavedPreferences();
 
-  // Render Resume View
+  // Render Resume View from data.json
   renderResumeView();
 
   // Render Sidebar Editor Controls
@@ -58,12 +43,23 @@ function initializeResumeBuilder() {
 
   // Synchronize raw JSON editor textarea
   updateRawJsonTextarea();
+
+  // Synchronize document title and metadata
+  syncDocumentMetadata();
+}
+
+function syncDocumentMetadata() {
+  if (!resumeData || !resumeData.header) return;
+  const { name, title } = resumeData.header;
+  if (name && title) {
+    document.title = `${name} - ${title}`;
+  }
 }
 
 function renderResumeView() {
   if (!resumeData) return;
   renderHeader(resumeData.header);
-  renderSummary(resumeData.experience);
+  renderSummary();
   renderSkills(resumeData.skills);
   renderExperience(resumeData.experience);
   renderProjects(resumeData.projects);
@@ -134,13 +130,20 @@ function renderExperience(expData) {
 function renderProjects(projectsData) {
   document.getElementById("projects-container").innerHTML = projectsData
     .map(
-      (project) => `
+      (project) => {
+        let nameHtml = project.name;
+        const parenMatch = project.name.match(/^([^(]+?)\s*(\([^)]+\))$/);
+        if (parenMatch) {
+          nameHtml = `${parenMatch[1].trim()} <span class="project-subtitle">${parenMatch[2].trim()}</span>`;
+        }
+        return `
     <div class="project-card">
-      <div class="project-name">${project.name}</div>
+      <div class="project-name">${nameHtml}</div>
       <div class="project-meta">${project.meta}</div>
       <div class="project-desc">${project.desc}</div>
     </div>
-  `,
+  `;
+      }
     )
     .join("");
 }
@@ -184,71 +187,10 @@ function renderOpenSource(osData) {
   container.innerHTML = html;
 }
 
-function renderSummary(expData) {
-  if (!expData || expData.length === 0) {
-    document.getElementById("summary-container").innerHTML =
-      "Full Stack Developer specializing in building modern web and mobile applications.";
-    return;
-  }
-
-  // Convert date strings (e.g., "Dec 2023 - Jun 2024") into absolute month numbers
-  const intervals = [];
-  expData.forEach((job) => {
-    if (!job.date) return;
-    // Split by dash or en-dash
-    const dateParts = job.date.split(/\s*[-–—]\s*/);
-    if (dateParts.length < 2) return;
-
-    try {
-      const start = new Date(dateParts[0]);
-      const end = dateParts[1].toLowerCase().includes("present")
-        ? new Date()
-        : new Date(dateParts[1]);
-
-      if (!isNaN(start.getTime()) && !isNaN(end.getTime())) {
-        intervals.push({
-          startMonth: start.getFullYear() * 12 + start.getMonth(),
-          endMonth: end.getFullYear() * 12 + end.getMonth(),
-        });
-      }
-    } catch (e) {
-      console.warn("Could not calculate dates for job:", job);
-    }
-  });
-
-  let totalYears = 2; // default fallback if parser fails or returns 0
-  if (intervals.length > 0) {
-    // Sort intervals by the start date
-    intervals.sort((a, b) => a.startMonth - b.startMonth);
-
-    // Merge any overlapping intervals (e.g., leaving one job in Dec and starting another in Dec)
-    const mergedIntervals = [];
-    let current = intervals[0];
-    for (let i = 1; i < intervals.length; i++) {
-      if (intervals[i].startMonth <= current.endMonth) {
-        // Overlapping jobs: extend the end date if the new job ends later
-        current.endMonth = Math.max(current.endMonth, intervals[i].endMonth);
-      } else {
-        mergedIntervals.push(current);
-        current = intervals[i];
-      }
-    }
-    mergedIntervals.push(current);
-
-    // Sum up the total months (+1 makes it inclusive, so May to Oct equals 6 months)
-    const totalMonths = mergedIntervals.reduce((sum, interval) => {
-      return sum + (interval.endMonth - interval.startMonth + 1);
-    }, 0);
-
-    totalYears = Math.floor(totalMonths / 12);
-    if (totalYears < 1) totalYears = 1;
-  }
-
-  const name = resumeData.header.name || "Samarth Sheth";
-  const title = resumeData.header.title || "Full Stack JavaScript Developer";
-  document.getElementById("summary-container").innerHTML = `
-    Highly motivated <strong>${title}</strong> with over <strong>${totalYears}+ years</strong> of experience designing and engineering responsive full-stack applications, scalable SaaS systems, enterprise-grade Order Management Systems (OMS), and high-performance CRMs. Proficient in TypeScript, React, Next.js, React Native, Node.js, and popular database technologies. Recognized for streamlining development pipelines, accelerating product releases, and delivering seamless user experiences across web and mobile platforms.
-  `;
+function renderSummary() {
+  const container = document.getElementById("summary-container");
+  if (!container) return;
+  container.innerHTML = (resumeData && resumeData.summary) ? resumeData.summary : "";
 }
 
 function renderEducation(eduData) {
@@ -309,6 +251,12 @@ function renderSidebarEditors() {
       <input type="text" id="input-github" class="form-control" value="${resumeData.header.github}" oninput="updateHeaderField('github', this.value)" />
     </div>
   `;
+
+  // Render Profile Summary Editor
+  const summaryInput = document.getElementById("input-summary");
+  if (summaryInput) {
+    summaryInput.value = resumeData.summary || "";
+  }
 
   // Render Skills Editor
   renderSkillsEditor();
@@ -505,6 +453,13 @@ function renderEducationEditor() {
 function updateHeaderField(field, value) {
   resumeData.header[field] = value;
   renderResumeView();
+  saveToLocalStorage();
+}
+
+function updateSummaryField(value) {
+  if (!resumeData) return;
+  resumeData.summary = value;
+  renderSummary();
   saveToLocalStorage();
 }
 
@@ -721,28 +676,17 @@ function toggleSection(sectionId, show) {
 // ... existing code ...
 /* === UI Controls / Utilities === */
 function copyEmail() {
-  const email =
-    resumeData && resumeData.header && resumeData.header.email
-      ? resumeData.header.email
-      : "samarth.sheth.29@gmail.com";
+  const email = (resumeData && resumeData.header && resumeData.header.email) || "";
+  if (!email) return;
   navigator.clipboard
     .writeText(email)
     .then(() => alert(`Email (${email}) copied to clipboard!`));
 }
 
 function writeEmail() {
-  const email =
-    resumeData && resumeData.header && resumeData.header.email
-      ? resumeData.header.email
-      : "samarth.sheth.29@gmail.com";
-  const title =
-    resumeData && resumeData.header && resumeData.header.title
-      ? resumeData.header.title
-      : "Full Stack JavaScript Developer";
-  const name =
-    resumeData && resumeData.header && resumeData.header.name
-      ? resumeData.header.name
-      : "Samarth";
+  const email = (resumeData && resumeData.header && resumeData.header.email) || "";
+  const title = (resumeData && resumeData.header && resumeData.header.title) || "Developer";
+  const name = (resumeData && resumeData.header && resumeData.header.name) || "Candidate";
 
   const subject = encodeURIComponent(`Job Opportunity - ${title}`);
   const body = encodeURIComponent(
@@ -752,33 +696,22 @@ function writeEmail() {
 }
 
 function callNow() {
-  const phone =
-    resumeData && resumeData.header && resumeData.header.phone
-      ? resumeData.header.phone.replace(/\s+/g, "")
-      : "+919537685650";
+  const phone = (resumeData && resumeData.header && resumeData.header.phone)
+    ? resumeData.header.phone.replace(/\s+/g, "")
+    : "";
+  if (!phone) return;
   window.location.href = `tel:${phone}`;
 }
 
 function setPrintTitle() {
   const d = new Date();
   const m = [
-    "JAN",
-    "FEB",
-    "MAR",
-    "APR",
-    "MAY",
-    "JUN",
-    "JUL",
-    "AUG",
-    "SEP",
-    "OCT",
-    "NOV",
-    "DEC",
+    "JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+    "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
   ];
-  const name =
-    resumeData && resumeData.header && resumeData.header.name
-      ? resumeData.header.name.toUpperCase().replace(/\s+/g, "_")
-      : "SAMARTH_SHETH";
+  const name = (resumeData && resumeData.header && resumeData.header.name)
+    ? resumeData.header.name.toUpperCase().replace(/\s+/g, "_")
+    : "RESUME";
   document.title = `${name}_${String(d.getDate()).padStart(2, "0")}_${m[d.getMonth()]}_${d.getFullYear()}`;
 }
 
@@ -944,94 +877,4 @@ function resetToDefault() {
     // Reload Everything
     location.reload();
   }
-}
-
-/* === OFFLINE FALLBACK TEMPLATE DATA === */
-function getFallbackData() {
-  return {
-    header: {
-      name: "Samarth Sheth",
-      title: "Full Stack JavaScript Developer",
-      phone: "+91-9537685650",
-      email: "samarth.sheth.29@gmail.com",
-      location: "Surat, Gujarat, India",
-      linkedin: "https://linkedin.com/in/sheth-samarth",
-      github: "https://github.com/shethsamarth",
-    },
-    skills: [
-      {
-        label: "Languages",
-        values: "TypeScript, JavaScript (ES6+), HTML5, CSS3, GraphQL",
-      },
-      {
-        label: "Frameworks",
-        values:
-          "React, Next.js, React Native, Express.js, Hono, Expo, Tailwind",
-      },
-      {
-        label: "Backend & APIs",
-        values: "Node.js, REST APIs, GraphQL, WebSockets, JWT Authentication",
-      },
-      {
-        label: "Databases & ORMs",
-        values: "PostgreSQL, MongoDB, MySQL, Redis, Prisma, Drizzle",
-      },
-    ],
-    experience: [
-      {
-        company: "Bilipatra",
-        location: "Surat, Gujarat",
-        role: "JavaScript Developer",
-        date: "Dec 2025 - Present",
-        bullets: [
-          "Architected 'Profit Sheet,' a centralized real-time financial dashboard aggregating live revenue, margins, and profit metrics seamlessly across Amazon, Flipkart, Shopify, Meesho, Tata 1mg, and internal telesales.",
-          "Engineered a comprehensive Order Management System (OMS) akin to Unicommerce, centralizing multi-channel order processing, real-time inventory synchronization, and automated fulfillment tracking.",
-        ],
-      },
-      {
-        company: "Logicwind Technologies LLP",
-        location: "Surat, Gujarat",
-        role: "JavaScript Developer",
-        date: "Sep 2024 - Dec 2025",
-        bullets: [
-          "Engineered high-performance cross-platform mobile interfaces for ThinQ Media, a large-scale streaming application, utilizing React Native to deliver seamless viewing experiences for over 1M+ iOS and Android users.",
-          "Developed core distribution and file management workflows for AppsOnAir, an OTA platform serving 50,000+ developers, heavily optimizing the upload, parsing, and deployment processes for APK and IPA files.",
-        ],
-      },
-    ],
-    projects: [
-      {
-        name: "Profit Sheet (Omnichannel Dashboard)",
-        meta: "Financial Intelligence | Real-Time Data",
-        desc: "Engineered a high-performance analytics dashboard providing live visibility into cross-platform profitability. Aggregated and standardized disparate financial data streams from Amazon, Flipkart, Shopify, Meesho, Tata 1mg, and internal Telesales CRM via API webhooks, utilizing Redis caching to deliver sub-second rendering of complex margin calculations.",
-      },
-      {
-        name: "Omnichannel OMS",
-        meta: "Enterprise E-commerce | Logistics Integration",
-        desc: "Architected an Order Management System analogous to Unicommerce for centralized multi-channel fulfillment. Seamlessly integrated 7+ major logistics partners enabling automated airway bill generation, multi-warehouse inventory sync, and live tracking.",
-      },
-    ],
-    opensource: {
-      published: [
-        {
-          name: "react-native-exit-app",
-          link: "https://github.com/logicwind/react-native-exit-app",
-          desc: "Programmatic app exit utility for iOS, Android and tvOS",
-        },
-        {
-          name: "react-native-fold-detection",
-          link: "https://github.com/logicwind/react-native-fold-detection",
-          desc: "Foldable device state detection for adaptive UI",
-        },
-      ],
-    },
-    education: [
-      {
-        institution: "Uka Tarsadia University",
-        degree:
-          "Bachelor of Technology — B. Tech, Computer Science & Engineering (Cloud Computing)",
-        date: "2021 - 2025",
-      },
-    ],
-  };
 }

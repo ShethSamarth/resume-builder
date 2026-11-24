@@ -1,177 +1,156 @@
 {
   "header": {
     "name": "Samarth Sheth",
-    "title": "Full Stack JavaScript Developer",
+    "title": "Mobile & Full Stack Developer",
     "phone": "+91-9537685650",
     "email": "samarth.sheth.29@gmail.com",
     "location": "Surat, Gujarat, India",
     "linkedin": "https://linkedin.com/in/sheth-samarth",
     "github": "https://github.com/shethsamarth"
   },
+  "summary": "Full Stack and Mobile Developer with 3+ years of experience building scalable web and mobile applications using React, React Native, Next.js, and Node.js across OTT streaming, fintech, e-commerce, and logistics domains. Proven track record delivering solutions spanning Smart TV and mobile video streaming (1M+ downloads), secure UPI payments and digital lending flows, multi-channel e-commerce platforms, and automated logistics with courier shipping integrations. Author of 7 open-source npm packages with 20,000+ weekly downloads.",
   "skills": [
     {
-      "label": "Languages",
-      "values": "TypeScript, JavaScript (ES6+), HTML5, CSS3, GraphQL"
+      "label": "Mobile & TV Engineering",
+      "values": "React Native, Expo, Android TV, tvOS, Reanimated, React Navigation, TV Focus Navigation"
     },
     {
-      "label": "Frameworks",
-      "values": "React, Next.js, React Native, Express.js, Hono, Expo, Tailwind"
+      "label": "Frontend & Full Stack",
+      "values": "TypeScript, JavaScript (ES6+), React.js, Next.js, Redux Toolkit, Zustand, HTML5, CSS3, Tailwind CSS"
     },
     {
-      "label": "Backend & APIs",
-      "values": "Node.js, REST APIs, GraphQL, WebSockets, JWT Authentication"
+      "label": "Backend & Distributed Systems",
+      "values": "Node.js, Express.js, Hono, RESTful APIs, GraphQL, WebSockets, JWT Authentication, Microservices"
     },
     {
-      "label": "Libraries & State",
-      "values": "React Query, Redux/Zustand, React Navigation, Axios, Reanimated"
+      "label": "Databases & Caching",
+      "values": "PostgreSQL, Redis Caching, MongoDB, MySQL, Prisma ORM, Drizzle ORM"
     },
     {
-      "label": "Databases & ORMs",
-      "values": "PostgreSQL, MongoDB, MySQL, Redis, Prisma, Drizzle"
-    },
-    {
-      "label": "Infrastructure & Tools",
-      "values": "Docker, Nginx, PM2, AWS EC2, Vercel, Git, Firebase"
-    },
-    {
-      "label": "Platforms",
-      "values": "Web, iOS, Android, Apple TV, Android TV, Fire TV"
+      "label": "Fintech & Mobile Security",
+      "values": "UPI, Digital Lending, e-KYC, SSL Pinning, Screen Capture Protection, Frida Hook Detection"
     }
   ],
   "experience": [
     {
+      "company": "FDPL Finance Private Limited",
+      "location": "Mumbai, Maharashtra",
+      "role": "Full Stack Developer",
+      "date": "Aug 2026 - Present",
+      "bullets": [
+        "Built digital lending and credit-line flows in React Native and TypeScript, connecting DigiLocker identity checks, bank-statement sharing, and instant account verification so users can apply for a loan with less paperwork.",
+        "Built the mobile side of UPI payments with two bank partners (NSDL Payments Bank and IndusInd) in Kotlin and Swift, including payments that complete in under a second and UPI Lite balances that stay in sync offline.",
+        "Added on-device security checks in Kotlin and Swift that block rooted or jailbroken phones, debugging tools, and fake overlay screens before a user can enter payment details.",
+        "Stored payment credentials in the phone's secure storage and pinned the app to trusted server certificates so payment traffic cannot be intercepted.",
+        "Added automatic loan repayments through bank mandates and UPI AutoPay, plus bill payments, so collections no longer depend on manual follow-up."
+      ]
+    },
+    {
       "company": "Bilipatra",
       "location": "Surat, Gujarat",
-      "role": "JavaScript Developer",
-      "date": "Dec 2025 - Present",
+      "role": "Full Stack Developer",
+      "date": "Dec 2025 - Aug 2026",
       "bullets": [
-        "Architected 'Profit Sheet,' a centralized real-time financial dashboard aggregating live revenue, margins, and profit metrics seamlessly across Amazon, Flipkart, Shopify, Meesho, Tata 1mg, and internal telesales.",
-        "Engineered a comprehensive Order Management System (OMS) akin to Unicommerce, centralizing multi-channel order processing, real-time inventory synchronization, and automated fulfillment tracking.",
-        "Developed a full-stack CRM tailored for a high-performing telesales team, delivering advanced data filtering, real-time analytics, and lead tracking to boost conversion rates.",
-        "Built robust backend REST APIs using Node.js and Prisma, ensuring highly reliable data management and seamless integration with multiple third-party e-commerce webhooks.",
-        "Containerized PostgreSQL and Redis databases using Docker, maintaining strict data consistency, and configured production infrastructure on AWS EC2 utilizing Nginx and PM2 for zero-downtime deployments."
+        "Architected an enterprise Order Management System (OMS) backend using Hono, TypeScript, and PostgreSQL (Drizzle ORM), with BullMQ workers handling automated order workflows, multi-courier AWB allocation (including India Post), and barcode generation.",
+        "Built LogiScan, a React Native mobile application for warehouse logistics, enabling camera-based barcode scanning for order dispatch and RTO (Return to Origin) intake, with encrypted MMKV storage and live status analytics.",
+        "Engineered an asynchronous, idempotent webhook ingestion pipeline using Redis and BullMQ to sync multi-channel e-commerce orders, SKU-level inventory, and automated payment/refund processing in real time.",
+        "Developed a high-performance sales CRM in React 19, Vite, and TypeScript with TanStack Query and TanStack Table, implementing automated priority lead pool distribution, call activity tracking, and conversion funnel analytics."
       ]
     },
     {
       "company": "Logicwind Technologies LLP",
       "location": "Surat, Gujarat",
-      "role": "JavaScript Developer",
+      "role": "Full Stack Developer",
       "date": "Sep 2024 - Dec 2025",
       "bullets": [
-        "Engineered high-performance cross-platform mobile interfaces for ThinQ Media, a large-scale streaming application, utilizing React Native to deliver seamless viewing experiences for over 1M+ iOS and Android users.",
-        "Developed core distribution and file management workflows for AppsOnAir, an OTA platform serving 50,000+ developers, heavily optimizing the upload, parsing, and deployment processes for APK and IPA files.",
-        "Built and scaled secure frontend architectures for ContactBook, a multi-tenant SaaS platform used by 5,000+ professionals, implementing complex subscription-based workspace sharing and role-based access controls.",
-        "Delivered Samachar, a personalized regional news aggregation app, integrating dynamic category routing, push notifications, and responsive UI components to drive localized user engagement.",
-        "Collaborated in a fast-paced Agile environment, working closely with backend engineers and product teams to integrate RESTful APIs and consistently meet aggressive release deadlines."
+        "Engineered cross-platform media streaming applications in React Native for ThinQ Media (1M+ downloads), optimizing HLS video playback startup latency and building 10-foot UI focus navigation for Apple TV and Android TV.",
+        "Developed core features for AppsOnAir, a mobile app release management platform serving 50,000+ users, streamlining over-the-air (OTA) build artifact parsing (APK/AAB/IPA) and implementing cross-platform in-app update SDK lifecycles.",
+        "Architected collaborative mobile features in React Native and TypeScript for ContactBook, implementing shared workspace spaces, granular role-based access control (RBAC), and offline-first two-way contact synchronization.",
+        "Authored and published 7 open-source React Native libraries (covering TV remote focus navigation, in-app update handling, tvOS SSL pinning, and foldable posture detection), garnering 20,000+ weekly npm downloads."
       ]
     },
     {
       "company": "SetBlue.com",
       "location": "Surat, Gujarat",
-      "role": "JavaScript Developer",
+      "role": "Full Stack Developer",
       "date": "Dec 2023 - Jun 2024",
       "bullets": [
-        "Architected and deployed full-stack MERN and Next.js web applications, successfully configuring and securing scalable hosting environments on AWS Windows servers.",
-        "Engineered a dynamic, high-performance admin dashboard using Next.js, leveraging server-side rendering (SSR) to streamline internal workflows and simplify backend data management.",
-        "Led the frontend execution of a comprehensive dual B2B & B2C e-commerce platform, integrating secure payment gateways and optimizing user checkout journeys.",
-        "Implemented rigorous API integrations and state management solutions using Redux and React Query, ensuring data consistency across complex, multi-step user flows."
+        "Engineered a Shopify-like e-commerce web application and merchant admin portal in Next.js, Node.js, and Redux Toolkit, featuring dynamic product catalogs, multi-step cart checkout flows, secure payment gateway integrations, and SSR-driven performance.",
+        "Developed a comprehensive School Learning Management System (LMS) using React, Node.js, and REST APIs, delivering role-based portals for teachers, students, and administrators with course management, attendance tracking, and grade reporting."
       ]
     },
     {
       "company": "Success Innovative Technologies",
       "location": "Surat, Gujarat",
-      "role": "JavaScript Developer",
+      "role": "Full Stack Developer",
       "date": "May 2023 - Oct 2023",
       "bullets": [
-        "Accelerated the product delivery cycle by rapidly developing and deploying 6 cross-platform React Native mobile applications and a React web app within a tight 6-month timeframe.",
-        "Integrated robust PHP and MySQL backend architectures to support data-intensive mobile and web features, ensuring high availability and seamless data synchronization.",
-        "Executed aggressive performance optimizations, overhauling component rendering and API fetching strategies to drastically cut load times and boost cross-device responsiveness.",
-        "Bridged the gap between design and engineering, collaborating closely with UI/UX and product teams to translate complex Figma wireframes into polished, production-ready applications."
+        "Architected and shipped 6 production cross-platform mobile applications using React Native and PHP/MySQL REST APIs, delivering responsive user interfaces, secure backend data integrations, and meeting strict release milestones within a 6-month delivery window."
       ]
     }
   ],
   "projects": [
     {
-      "name": "Profit Sheet (Omnichannel Dashboard)",
-      "meta": "Financial Intelligence | Real-Time Data",
-      "desc": "Engineered a high-performance analytics dashboard providing live visibility into cross-platform profitability. Aggregated and standardized disparate financial data streams from Amazon, Flipkart, Shopify, Meesho, Tata 1mg, and internal Telesales CRM via API webhooks, utilizing Redis caching to deliver sub-second rendering of complex margin calculations."
+      "name": "FDPL (Digital Lending & UPI Payments)",
+      "meta": "React Native | TypeScript | Node.js | UPI AutoPay | SSL Pinning",
+      "desc": "High-security mobile financial platform featuring sub-second UPI payments with two bank partners, instant DigiLocker e-KYC verification, credit lines, UPI AutoPay recurring mandates, and on-device anti-tampering protection."
     },
     {
-      "name": "Omnichannel OMS",
-      "meta": "Enterprise E-commerce | Logistics Integration",
-      "desc": "Architected an Order Management System analogous to Unicommerce for centralized multi-channel fulfillment. Seamlessly integrated 7+ major logistics partners (Delhivery, Bluedart, Amazon Shipping, etc.) enabling automated airway bill generation, multi-warehouse inventory sync, and live tracking."
+      "name": "LogiScan OMS (Order Fulfillment & Logistics)",
+      "meta": "Hono | Node.js | React Native | TypeScript | Drizzle ORM | BullMQ | Redis",
+      "desc": "Enterprise multi-channel order fulfillment engine and React Native warehouse app with camera barcode scanning, BullMQ background queues, automated multi-courier AWB allocation (including India Post), and real-time SKU inventory sync."
     },
     {
-      "name": "ThinQ Media",
-      "meta": "Media Streaming | 1M+ Users",
-      "desc": "Engineered robust mobile interfaces for a large-scale streaming platform (iOS/Android) using React Native, implementing complex video playback modules and seamless cross-device state synchronization."
-    },
-    {
-      "name": "AppsOnAir",
-      "meta": "Developer Tools | 50,000+ Users",
-      "desc": "Developed the frontend architecture for an OTA app distribution platform. Built complex file management workflows and CI/CD dashboard integrations for smooth APK/IPA parsing and deployment."
-    },
-    {
-      "name": "ContactBook",
-      "meta": "SaaS | 5,000+ Users",
-      "desc": "Multi-tenant SaaS contact management platform. Enabled secure, real-time contact sharing within subscription-based workspaces with robust role-based access control."
-    },
-    {
-      "name": "CRM",
-      "meta": "CRM Platform",
-      "desc": "Custom CRM application built with TypeScript. Features a Vercel-hosted React frontend and a Dockerized Node.js backend on AWS EC2, tailored for high-volume sales teams."
+      "name": "ThinQ Media (Smart TV & OTT Streaming)",
+      "meta": "React Native | tvOS | Android TV | HLS Streaming | Reanimated",
+      "desc": "Cross-platform streaming application engineered for mobile and smart TV screens (Apple TV / Android TV) with 1M+ downloads, featuring optimized HLS video playback startup latency and custom 10-foot UI remote focus navigation."
     }
   ],
   "opensource": {
     "community": [],
     "published": [
       {
-        "name": "react-native-exit-app",
-        "link": "https://github.com/logicwind/react-native-exit-app",
-        "desc": "Programmatic app exit utility for iOS, Android and tvOS"
-      },
-      {
-        "name": "react-native-fold-detection",
-        "link": "https://github.com/logicwind/react-native-fold-detection",
-        "desc": "Foldable device state detection for adaptive UI"
-      },
-      {
-        "name": "react-native-status-bar-height",
-        "link": "https://github.com/logicwind/react-native-status-bar-height",
-        "desc": "Cross-platform status bar height detection"
-      },
-      {
         "name": "react-native-tvos-keyboard",
         "link": "https://github.com/logicwind/react-native-tvos-keyboard",
-        "desc": "Custom keyboard handling for tvOS apps"
-      },
-      {
-        "name": "react-native-rn-in-app-update",
-        "link": "https://github.com/logicwind/react-native-rn-in-app-update",
-        "desc": "In-app update prompts for Android"
-      },
-      {
-        "name": "react-native-matomo-tracker",
-        "link": "https://github.com/logicwind/react-native-matomo-tracker",
-        "desc": "Matomo/Piwik analytics integration"
+        "desc": "Custom focus navigation and keyboard handling for Apple TV and Android TV apps"
       },
       {
         "name": "react-native-tvos-ssl-pinning",
         "link": "https://github.com/logicwind/react-native-tvos-ssl-pinning",
-        "desc": "SSL certificate pinning for tvOS"
+        "desc": "Checks the server certificate on Apple TV and phones so the app only talks to the real server"
+      },
+      {
+        "name": "react-native-exit-app",
+        "link": "https://github.com/logicwind/react-native-exit-app",
+        "desc": "Programmatic application termination utility across iOS, Android, and tvOS"
+      },
+      {
+        "name": "react-native-fold-detection",
+        "link": "https://github.com/logicwind/react-native-fold-detection",
+        "desc": "Posture and hinge angle detection for adaptive dual-screen and foldable devices"
+      },
+      {
+        "name": "react-native-status-bar-height",
+        "link": "https://github.com/logicwind/react-native-status-bar-height",
+        "desc": "Zero-dependency cross-platform status bar dimension calculation"
+      },
+      {
+        "name": "react-native-rn-in-app-update",
+        "link": "https://github.com/logicwind/react-native-rn-in-app-update",
+        "desc": "Native Google Play in-app immediate and flexible update lifecycles"
+      },
+      {
+        "name": "react-native-matomo-tracker",
+        "link": "https://github.com/logicwind/react-native-matomo-tracker",
+        "desc": "Privacy-compliant client-side telemetry and analytics integration"
       }
     ]
   },
   "education": [
     {
       "institution": "Uka Tarsadia University",
-      "degree": "Bachelor of Technology — B. Tech, Computer Science & Engineering (Cloud Computing)",
+      "degree": "Bachelor of Technology (B.Tech) in Computer Science & Engineering (Cloud Computing)",
       "date": "2021 - 2025"
-    },
-    {
-      "institution": "Sardar Vallabhbhai Patel High School",
-      "degree": "Higher Secondary Certificate, Science Stream (PCM)",
-      "date": "2020 - 2021"
     }
   ]
 }

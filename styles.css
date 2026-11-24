@@ -20,11 +20,11 @@
     --page-margin: 12mm;
 
     /* Configurable properties default */
-    --base-font-size: 10px;
-    --line-height: 1.3;
-    --page-padding: 12mm;
-    --section-gap: 10px;
-    --job-gap: 10px;
+    --base-font-size: 10.5px;
+    --line-height: 1.45;
+    --page-padding: 14mm;
+    --section-gap: 12px;
+    --job-gap: 9px;
 }
 
 body {
@@ -670,33 +670,34 @@ input[type="range"]:hover {
 /* ===== HEADER ===== */
 .header {
     text-align: center;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--primary);
-    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid var(--primary);
+    margin-bottom: 14px;
 }
 
 .header h1 {
     font-family: var(--heading-font);
-    font-size: calc(var(--base-font-size) * 2.6);
+    font-size: calc(var(--base-font-size) * 2.4);
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.4px;
     color: var(--primary);
-    margin-bottom: 3px;
+    margin-bottom: 2px;
+    line-height: 1.15;
 }
 
 .header .subtitle {
     font-family: var(--body-font);
-    font-size: calc(var(--base-font-size) * 1.2);
+    font-size: calc(var(--base-font-size) * 1.15);
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.2px;
     color: var(--dark);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .header .contact-row {
-    font-size: var(--base-font-size);
+    font-size: calc(var(--base-font-size) * 0.95);
     color: var(--dark);
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .header .contact-row a {
@@ -720,15 +721,16 @@ input[type="range"]:hover {
 
 .section-title {
     font-family: var(--body-font);
-    font-size: var(--base-font-size);
+    font-size: calc(var(--base-font-size) * 0.95);
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.1px;
     text-transform: uppercase;
     color: var(--primary);
     background: var(--section-bg);
-    padding: 5px 10px;
-    margin-bottom: 8px;
+    padding: 4px 8px;
+    margin-bottom: 7px;
     border-left: 3px solid var(--primary);
+    line-height: 1.3;
     break-after: avoid;
     page-break-after: avoid;
 }
@@ -738,11 +740,11 @@ input[type="range"]:hover {
     font-size: var(--base-font-size);
     line-height: var(--line-height);
     color: var(--dark);
-    text-align: justify;
+    text-align: left;
 }
 
-.summary-text strong {
-    color: var(--primary);
+.summary-text strong,
+.summary-text b {
     font-weight: 700;
 }
 
@@ -792,30 +794,31 @@ input[type="range"]:hover {
 
 .job ul {
     list-style: disc;
-    padding-left: 16px;
-    margin-top: 3px;
+    padding-left: 18px;
+    margin-top: 4px;
 }
 
 .job li {
-    font-size: calc(var(--base-font-size) * 0.95);
+    font-size: var(--base-font-size);
     line-height: var(--line-height);
     color: var(--dark);
-    margin-bottom: 2px;
+    margin-bottom: 3px;
 }
 
 /* ===== PROJECTS ===== */
 .projects-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .project-card {
-    border: 1px solid var(--border);
-    padding: 6px 8px;
+    border: none;
+    border-left: 2.5px solid var(--primary);
+    padding: 3px 0 3px 10px;
     break-inside: avoid;
     page-break-inside: avoid;
-    background: var(--white);
+    background: transparent;
 }
 
 .project-name {
@@ -825,41 +828,44 @@ input[type="range"]:hover {
     color: var(--primary);
 }
 
+.project-name .project-subtitle {
+    font-weight: 500;
+    color: var(--mid);
+}
+
 .project-meta {
-    font-size: calc(var(--base-font-size) * 0.8);
+    font-size: calc(var(--base-font-size) * 0.9);
     color: var(--light-text);
-    margin-bottom: 3px;
+    margin-bottom: 2px;
+    line-height: 1.35;
 }
 
 .project-desc {
-    font-size: calc(var(--base-font-size) * 0.85);
+    font-size: calc(var(--base-font-size) * 0.95);
     line-height: var(--line-height);
     color: var(--dark);
 }
 
 /* ===== SKILLS ===== */
 .skills-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px 24px;
-    /* Compact vertical gap, comfortable horizontal separation */
+    display: block;
 }
 
 .skill-group {
     break-inside: avoid;
-    line-height: 0.8;
-    margin-bottom: 0;
+    line-height: var(--line-height);
+    margin-bottom: 2px;
 }
 
 .skill-label {
-    font-size: calc(var(--base-font-size) * 0.9);
+    font-size: var(--base-font-size);
     font-weight: 700;
     color: var(--primary);
     display: inline;
 }
 
 .skill-values {
-    font-size: calc(var(--base-font-size) * 0.9);
+    font-size: var(--base-font-size);
     color: var(--dark);
     display: inline;
 }
@@ -903,10 +909,10 @@ input[type="range"]:hover {
 }
 
 .os-list li {
-    font-size: calc(var(--base-font-size) * 0.95);
+    font-size: var(--base-font-size);
     line-height: var(--line-height);
     color: var(--dark);
-    margin-bottom: 2px;
+    margin-bottom: 3px;
 }
 
 .os-list a {
@@ -972,14 +978,13 @@ input[type="range"]:hover {
 @media print {
     @page {
         size: A4;
-        margin: 0;
-        /* Let --page-padding control print margin precisely */
+        margin: 0; /* Hides default browser header (title, date) and footer (URL, page numbers) */
     }
 
     html,
     body {
-        width: 210mm;
-        height: 100%;
+        width: 100% !important;
+        height: auto !important;
         background: #ffffff !important;
     }
 
@@ -995,11 +1000,15 @@ input[type="range"]:hover {
     .app-container {
         display: block !important;
         width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
         gap: 0 !important;
     }
 
     .preview-area {
         width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .resume {
@@ -1007,7 +1016,9 @@ input[type="range"]:hover {
         max-width: none !important;
         box-shadow: none !important;
         margin: 0 !important;
-        padding: var(--page-padding) !important;
+        padding: var(--page-padding, 14mm) !important;
+        box-decoration-break: clone !important;
+        -webkit-box-decoration-break: clone !important;
     }
 
     .sidebar,
@@ -1032,6 +1043,29 @@ input[type="range"]:hover {
     .edu-item {
         break-inside: avoid;
         page-break-inside: avoid;
+    }
+
+    .skills-grid {
+        display: block !important;
+    }
+
+    .skill-group {
+        margin-bottom: 2px !important;
+        line-height: var(--line-height) !important;
+    }
+
+    .projects-grid {
+        display: block !important;
+    }
+
+    .project-card {
+        margin-bottom: 6px !important;
+        border-left: 2px solid var(--primary) !important;
+        border-top: none !important;
+        border-right: none !important;
+        border-bottom: none !important;
+        padding: 2px 0 2px 8px !important;
+        background: transparent !important;
     }
 
     a[href]::after {

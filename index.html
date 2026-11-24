@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      Samarth Sheth - Full Stack JavaScript Developer | 2+ Years Experience
+      Samarth Sheth - Mobile & Full Stack Developer
     </title>
 
     <link rel="icon" type="image/png" href="samarth.jpg" />
@@ -12,11 +12,11 @@
 
     <meta
       name="description"
-      content="Samarth Sheth: Full Stack JavaScript Developer with 2+ years of experience building scalable SaaS, CRM, and consumer-facing applications using TypeScript, React, Next.js, React Native, and Node.js."
+      content="Samarth Sheth: Mobile & Full Stack Developer with 3+ years building production applications across OTT streaming, fintech, e-commerce, and logistics using React, React Native, Next.js, and Node.js."
     />
     <meta
       name="keywords"
-      content="Samarth Sheth, Full Stack Developer, JavaScript Developer, TypeScript, React, Next.js, React Native, Node.js, Surat Developer, AWS, Vercel"
+      content="Samarth Sheth, Full Stack Developer, Mobile Developer, React, React Native, Next.js, Node.js, OTT, Fintech, E-commerce, Logistics, Smart TV, UPI payments"
     />
     <meta name="author" content="Samarth Sheth" />
     <meta name="theme-color" content="#0b5cff" />
@@ -30,7 +30,7 @@
     <meta property="og:url" content="https://samarth-sheth.github.io/" />
     <meta
       property="og:title"
-      content="Samarth Sheth — Full Stack JavaScript Developer"
+      content="Samarth Sheth — Mobile & Full Stack Developer"
     />
     <meta
       property="og:description"
@@ -48,7 +48,7 @@
       name="ai:expertise"
       content="TypeScript, React, Next.js, React Native, Node.js, Full Stack Development, SaaS, REST APIs"
     />
-    <meta name="ai:experience_years" content="2+" />
+    <meta name="ai:experience_years" content="3+" />
     <meta name="job:location" content="Surat, Gujarat, India" />
     <meta name="job:type" content="Full-time, Contract, Remote" />
 
@@ -201,7 +201,7 @@
 
               <div class="form-group">
                 <label
-                  >Base Font Size: <span id="val-font-size">10.0px</span></label
+                  >Base Font Size: <span id="val-font-size">10.5px</span></label
                 >
                 <div class="slider-group">
                   <input
@@ -210,7 +210,7 @@
                     min="8"
                     max="14"
                     step="0.2"
-                    value="10.0"
+                    value="10.5"
                     oninput="
                       updateLayoutProperty(
                         'base-font-size',
@@ -225,7 +225,7 @@
 
               <div class="form-group">
                 <label
-                  >Line Spacing: <span id="val-line-height">1.30</span></label
+                  >Line Spacing: <span id="val-line-height">1.45</span></label
                 >
                 <div class="slider-group">
                   <input
@@ -234,7 +234,7 @@
                     min="1.1"
                     max="1.8"
                     step="0.05"
-                    value="1.30"
+                    value="1.45"
                     oninput="
                       updateLayoutProperty(
                         'line-height',
@@ -249,7 +249,7 @@
 
               <div class="form-group">
                 <label
-                  >Page Margins: <span id="val-page-margin">12mm</span></label
+                  >Page Margins: <span id="val-page-margin">14mm</span></label
                 >
                 <div class="slider-group">
                   <input
@@ -258,7 +258,7 @@
                     min="5"
                     max="25"
                     step="1"
-                    value="12"
+                    value="14"
                     oninput="
                       updateLayoutProperty(
                         'page-padding',
@@ -273,7 +273,7 @@
 
               <div class="form-group">
                 <label
-                  >Section Gap: <span id="val-section-gap">10px</span></label
+                  >Section Gap: <span id="val-section-gap">12px</span></label
                 >
                 <div class="slider-group">
                   <input
@@ -282,7 +282,7 @@
                     min="4"
                     max="25"
                     step="1"
-                    value="10"
+                    value="12"
                     oninput="
                       updateLayoutProperty(
                         'section-gap',
@@ -296,7 +296,7 @@
               </div>
 
               <div class="form-group">
-                <label>Job Spacing: <span id="val-job-gap">10px</span></label>
+                <label>Job Spacing: <span id="val-job-gap">9px</span></label>
                 <div class="slider-group">
                   <input
                     type="range"
@@ -304,7 +304,7 @@
                     min="4"
                     max="25"
                     step="1"
-                    value="10"
+                    value="9"
                     oninput="
                       updateLayoutProperty(
                         'job-gap',
@@ -396,7 +396,26 @@
             </div>
           </div>
 
-          <!-- Accordion 3: Skills -->
+          <!-- Accordion 3: Profile Summary -->
+          <div class="accordion-item">
+            <button class="accordion-trigger" onclick="toggleAccordion(this)">
+              <span>📝 Profile Summary</span>
+              <span class="chevron">▼</span>
+            </button>
+            <div class="accordion-content">
+              <div class="form-group">
+                <label for="input-summary">Profile Summary</label>
+                <textarea
+                  id="input-summary"
+                  class="form-control"
+                  style="min-height: 110px; resize: vertical; line-height: 1.4;"
+                  oninput="updateSummaryField(this.value)"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion 4: Skills -->
           <div class="accordion-item">
             <button class="accordion-trigger" onclick="toggleAccordion(this)">
               <span>🛠️ Skills List</span>
@@ -538,10 +557,9 @@
           class="notification no-print"
           style="display: none"
         >
-          <span
-            >⚠️ Running locally or CORS blocked! Loaded offline template. You
-            can customize here, copy, or download your custom JSON!</span
-          >
+          <span>
+            ⚠️ To load live data from <code>data.json</code>, please serve this folder via a local server (e.g., <code>npx serve</code> or <code>python3 -m http.server</code>), or load <code>data.json</code> via the Data Manager in the sidebar.
+          </span>
         </div>
 
         <main class="resume" id="resume-content">
